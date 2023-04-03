@@ -8,7 +8,7 @@ public class test {
 		// TODO Auto-generated method stub
 
 		LedService service = new LedService();
-		service.addLeds(5);
+		service.addLeds(100);
 		service.turnLedOn(2);
 		//forgit
 	}
