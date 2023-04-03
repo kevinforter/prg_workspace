@@ -10,6 +10,7 @@ public class test {
 		LedService service = new LedService();
 		service.addLeds(5);
 		service.turnLedOn(2);
+		//forgit
 	}
 
 }
