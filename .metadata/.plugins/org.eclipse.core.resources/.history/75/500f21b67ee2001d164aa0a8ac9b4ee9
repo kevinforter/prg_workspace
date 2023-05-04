@@ -1,0 +1,10 @@
+package ch.hslu.informatik.prg.demo02;
+
+public class AdresseTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

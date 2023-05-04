@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;pkw&apos; in &apos;ch.hslu.informatik.prg.block06.demo01.FahrzeugTest.main(...)&apos; to &apos;pkwA&apos;&#x0A;- Original project: &apos;prg_block06_demo&apos;&#x0A;- Original element: &apos;ch.hslu.informatik.prg.block06.demo01.FahrzeugTest.main(String[]).pkw&apos;&#x0A;- Renamed element: &apos;pkw&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;pkw&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;ch.hslu.informatik.prg.block06.demo01{FahrzeugTest.java[FahrzeugTest~main~\[QString;@pkw!326!365!340!342!QPersonenWagen;!0!false" name="pkwA" references="true" stamp="1679907697582" version="1.0"/>
+</session>
