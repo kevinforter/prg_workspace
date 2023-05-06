@@ -1,0 +1,39 @@
+package ch.hslu.informatik.prg.afg01;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+// Definieren Sie eine Klasse namens ArrayListDemoTest, in der nur die Methode main enthalten ist.
+public class ArrayListDemoTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		// Definieren Sie drei Person-Instanzen namens dani, marco und beat.
+		Person dani = new Person("cesar", "dani");
+		Person marco = new Person("alfonso", "marco");
+		Person beat = new Person("magteburg", "beat");
+
+		/* Erstellen Sie eine ArrayList-Instanz namens personenListe und fügen Sie 
+		 * alle drei Person-Instanzen in die liste ein.
+		 */
+		ArrayList<Person> personenListe = new ArrayList<>();
+
+		personenListe.add(dani);
+		personenListe.add(beat);
+		personenListe.add(marco);
+
+		// Geben Sie den Inhalt der personenListe auf dem Bildschirm aus
+		show(personenListe);
+		
+		System.out.println(dani.getName());
+	}
+	
+	static void show(ArrayList<Person> personenListe) {
+		System.out.println("Anzahl Personen: " + personenListe.size());
+		System.out.println();
+		for (Iterator<Person> it = personenListe.iterator(); it.hasNext(); ) {
+			System.out.println(it.next());
+		}
+	}
+}
