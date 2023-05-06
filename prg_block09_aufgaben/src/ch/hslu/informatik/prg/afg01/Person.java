@@ -1,7 +1,14 @@
 package ch.hslu.informatik.prg.afg01;
 
+/* Erstellen Sie eine Klasse namens Person1, welche (um es einfach zu halten) 
+ * nur zwei Felder (Attribute, Instanzvariablen) hat, in denen der Name und der Vorname der Person verwaltet werden.
+ */
 public class Person {
 
+	/* Erstellen Sie anschliessend die entsprechenden Zugriffsmethoden (set- und get-Methoden) 
+	 * und einen parametrisieren (benutzerdefinierten) Konstruktor, dem bei der Erstellung des Objekts 
+	 * Werte für Name und Vorname übergeben werden, um das Objekt vollständig initialisieren zu können.
+	 */
 	private String name;
 	private String vorName;
 	
