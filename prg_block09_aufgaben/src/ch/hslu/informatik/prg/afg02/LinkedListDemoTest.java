@@ -3,7 +3,13 @@ package ch.hslu.informatik.prg.afg02;
 import java.util.LinkedList;
 import java.util.Iterator;
 
-// Definieren Sie eine Klasse namens ArrayListDemoTest, in der nur die Methode main enthalten ist.
+/* In der Aufgabe 1 haben Sie ArrayList-Container verwendet. Ändern Sie den Programmcode so, 
+ * dass die ArrayList durch eine LinkedList ersetzt wird. Führen Sie anschliessend das Programm aus 
+ * und kontrollieren Sie, ob das Programm weiterhin korrekt funktioniert oder nicht. 
+ * Sollte dies nicht möglich sein, versuchen Sie den Fehler zu finden und zu beseitigen. 
+ * Falls es korrekt funktionieren sollte, versuchen Sie nachzuvollziehen, wieso dies so ist, 
+ * obwohl die ArrayList durch eine LinkedList ersetzt wurde.
+ */
 public class LinkedListDemoTest {
 
 	public static void main(String[] args) {
