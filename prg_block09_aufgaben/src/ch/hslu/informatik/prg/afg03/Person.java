@@ -1,5 +1,7 @@
 package ch.hslu.informatik.prg.afg03;
 
+import java.util.Objects;
+
 /* Erstellen Sie eine Klasse namens Person1, welche (um es einfach zu halten) 
  * nur zwei Felder (Attribute, Instanzvariablen) hat, in denen der Name und der Vorname der Person verwaltet werden.
  */
@@ -41,6 +43,19 @@ public class Person {
 	public String toString() {
 		return "Name: " + name + ", Vorname: " + vorName;
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj)
+	        return true;
+	    if (!(obj instanceof Person))
+	        return false;
+	    Person other = (Person) obj;
+	    return Objects.equals(name, other.name);
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(name);
+	}
 }
