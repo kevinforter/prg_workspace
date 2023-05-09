@@ -2,9 +2,6 @@ package ch.hslu.informatik.prg.afg03;
 
 import java.util.List;
 import java.util.Set;
-
-import ch.hslu.informatik.prg.afg02.Person;
-
 import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Iterator;

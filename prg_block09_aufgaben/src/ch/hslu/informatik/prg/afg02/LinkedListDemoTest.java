@@ -1,6 +1,7 @@
 package ch.hslu.informatik.prg.afg02;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Iterator;
 
 /* In der Aufgabe 1 haben Sie ArrayList-Container verwendet. Ändern Sie den Programmcode so, 
@@ -23,7 +24,7 @@ public class LinkedListDemoTest {
 		/* Erstellen Sie eine ArrayList-Instanz namens personenListe und fügen Sie 
 		 * alle drei Person-Instanzen in die liste ein.
 		 */
-		LinkedList<Person> personenListe = new LinkedList<>();
+		List<Person> personenListe = new LinkedList<>();
 
 		personenListe.add(dani);
 		personenListe.add(beat);
@@ -114,7 +115,7 @@ public class LinkedListDemoTest {
 	/* Dazu wird empfohlen, eine separate Methode namens showPersonen zu definieren. 
 	 * Die Ausgabe soll in dieser Methode mit Hilfe eines Iterator-Objekts realisiert werden.
 	 */
-	static void show(LinkedList<Person> personenListe) {
+	static void show(List<Person> personenListe) {
 		System.out.println("Anzahl Personen: " + personenListe.size());
 		System.out.println();
 		for (Iterator<Person> it = personenListe.iterator(); it.hasNext(); ) {
