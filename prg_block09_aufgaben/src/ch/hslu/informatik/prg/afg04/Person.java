@@ -50,8 +50,8 @@ public class Person implements Comparable<Person> {
 	        return true;
 	    if (!(obj instanceof Person))
 	        return false;
-	    Person other = (Person) obj;
-	    return Objects.equals(name, other.name);
+	    Person param = (Person) obj;
+	    return Objects.equals(name, param.name);
 	}
 
 	@Override
@@ -64,9 +64,9 @@ public class Person implements Comparable<Person> {
         if (this.equals(param)) {
             return 0;
         }
-        if (this.name.compareTo(param.name) != 0) {
-			return this.name.compareTo(param.name);
+        if (this.vorName.compareTo(param.vorName) != 0) {
+			return this.vorName.compareTo(param.vorName);
 		}
-        return this.vorName.compareTo(param.vorName);
+        return this.name.compareTo(param.name);
     }
 }

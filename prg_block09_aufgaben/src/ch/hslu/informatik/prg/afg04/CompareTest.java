@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Collections;
 
 public class CompareTest {
 
@@ -34,7 +35,9 @@ public class CompareTest {
 
 		// TODO - Alle Personen nach Vorname absteigend sortieren und 
 		// deren Daten anschliessend auf dem Bildschirm ausgeben
-		
+		Collections.sort(personenListe, Collections.reverseOrder());
+		System.out.println("\nAusgabe ’LinkedList’-Inhalt:"); 
+		showPersonen(personenListe);
 
 	}
 
