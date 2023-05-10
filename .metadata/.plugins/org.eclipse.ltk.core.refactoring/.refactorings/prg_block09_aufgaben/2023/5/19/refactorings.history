@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;Person.java&apos; to &apos;prg_block09_aufgaben/src/ch.hslu.informatik.prg.afg04&apos;&#x0A;- Original project: &apos;prg_block09_aufgaben&apos;&#x0A;- Destination element: &apos;prg_block09_aufgaben/src/ch.hslu.informatik.prg.afg04&apos;&#x0A;- Original element: &apos;ch.hslu.informatik.prg.afg03.Person.java&apos;" description="Copy compilation unit" destination="/src&lt;ch.hslu.informatik.prg.afg04" element1="/src&lt;ch.hslu.informatik.prg.afg03{Person.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1683632427242" units="1" version="1.0"/>
-</session>

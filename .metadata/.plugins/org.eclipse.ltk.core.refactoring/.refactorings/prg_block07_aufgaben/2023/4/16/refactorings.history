@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename package &apos;ch.hslu.informatik.prg.block07.afg&apos; to &apos;ch.hslu.informatik.prg.block07.afg01&apos;&#x0A;- Original project: &apos;prg_block07_aufgaben&apos;&#x0A;- Original element: &apos;prg_block07_aufgaben/src/ch.hslu.informatik.prg.block07.afg&apos;&#x0A;- Renamed element: &apos;prg_block07_aufgaben/src/ch.hslu.informatik.prg.block07.afg01&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings&#x0A;- Rename subpackages of the package" description="Rename package &apos;ch.hslu.informatik.prg.block07.afg&apos;" flags="589830" hierarchical="true" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;ch.hslu.informatik.prg.block07.afg" name="ch.hslu.informatik.prg.block07.afg01" qualified="false" references="true" stamp="1681913528191" textual="false" version="1.0"/>
-</session>
