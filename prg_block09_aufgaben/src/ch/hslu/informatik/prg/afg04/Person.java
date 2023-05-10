@@ -51,12 +51,14 @@ public class Person implements Comparable<Person> {
 	    if (!(obj instanceof Person))
 	        return false;
 	    Person param = (Person) obj;
-	    return Objects.equals(name, param.name);
+//	    System.out.print(name + " " + vorName + " " + param.name + " " + param.vorName);
+//	    System.out.println(Objects.equals(name, param.name));
+	    return this.name.equals(param.name) && this.name.equals(param.vorName);
 	}
 
 	@Override
 	public int hashCode() {
-	    return Objects.hash(name);
+	    return Objects.hash(vorName);
 	}
 	
 	@Override
@@ -64,9 +66,15 @@ public class Person implements Comparable<Person> {
         if (this.equals(param)) {
             return 0;
         }
-        if (this.vorName.compareTo(param.vorName) != 0) {
-			return this.vorName.compareTo(param.vorName);
-		}
-        return this.name.compareTo(name);
+//		if  (this.name.equals(param.name)) {
+//			return 0;
+//		}
+        //return this.vorName.compareTo(param.vorName);
+        return this.vorName.compareTo(param.vorName);
+//        if (this.name.compareTo(param.name) != 0) {
+//			return this.name.compareTo(param.name);
+//		}
+//        return this.vorName.compareTo(vorName);
     }
+        
 }

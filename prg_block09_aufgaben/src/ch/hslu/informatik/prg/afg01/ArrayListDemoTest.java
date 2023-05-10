@@ -109,7 +109,7 @@ public class ArrayListDemoTest {
 	/* Dazu wird empfohlen, eine separate Methode namens showPersonen zu definieren. 
 	 * Die Ausgabe soll in dieser Methode mit Hilfe eines Iterator-Objekts realisiert werden.
 	 */
-	static void show(List<Person> personenListe) {
+	public static void show(List<Person> personenListe) {
 		System.out.println("Anzahl Personen: " + personenListe.size());
 		System.out.println();
 		for (Iterator<Person> it = personenListe.iterator(); it.hasNext(); ) {
