@@ -9,14 +9,14 @@ public class Main {
 
 		int value = Util.getIntZahl("Bitte eine Zahl eingeben: ");
 		
-		int fact = 0;
 		try {
-			fact = Calculator.getFactorial(value);
+			int fact = Calculator.getFactorial(value);
+			System.out.println(fact);
 		} catch (ArgumentOutOfRangeException e) {
 			System.out.println("Caught the exception");
 			System.out.println("Exception occured: " + e);
 		}
 
-		System.out.println(fact);
+		
 	}
 }
