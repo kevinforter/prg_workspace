@@ -22,7 +22,7 @@ public class LampePersister {
 	}
 
 	// TODO - Methode 'readObjectsFromFile' implementieren
-	public List<Lampe> readObjects(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public static List<Lampe> readObjects(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
 		List <Lampe> liste = null;
 		
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {

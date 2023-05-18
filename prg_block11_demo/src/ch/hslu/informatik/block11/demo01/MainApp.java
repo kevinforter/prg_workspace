@@ -13,7 +13,7 @@ public class MainApp {
 
 		// TODO - Methode 'writeWithFileWriter' aufrufen
 		String text = "Heute ist ein so schoener Tag!";
-		String path = "/Users/kevinforter/Documents/file.txt";
+		String path = "/Users/kevinforter/Downloads/produktTypDataPlainText.txt";
 
 		//		try {
 		//			Util.writeWithFileWriter(text, path);
@@ -44,10 +44,8 @@ public class MainApp {
 
 		// TODO - Methode 'readWithBufferedReader' aufrufen
 		try {
-			String inhalt = Util.readWithBufferedReader(fileName);
+			String inhalt = Util.readWithBufferedReader(path);
 			System.out.println(inhalt);
-
-
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 			System.out.println("Es ist ein Fehler passiert");

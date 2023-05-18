@@ -4,15 +4,14 @@ package ch.hslu.informatik.prg.afg01;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		int value = Util.getIntZahl("Bitte eine Zahl eingeben: ");
 		
 		try {
+			int value = Util.getIntZahl("Bitte eine Zahl eingeben: ");
 			int fact = Calculator.getFactorial(value);
 			System.out.println(fact);
-		} catch (ArgumentOutOfRangeException e) {
+		} catch (Exception e) {
 			System.out.println("Caught the exception");
 			System.out.println("Exception occured: " + e);
 		}

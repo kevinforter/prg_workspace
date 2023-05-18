@@ -1,6 +1,8 @@
 package ch.hslu.informatik.block11.demo03.domain;
 
-public class Lampe {
+import java.io.Serializable;
+
+public class Lampe implements Serializable{
 
 	private int spannung;
 	private int leistungInWatt;
