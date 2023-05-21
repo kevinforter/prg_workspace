@@ -5,8 +5,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
-
+import java.util.NoSuchElementException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -82,7 +86,6 @@ public class DataParser {
 						LOGGER.warn("\nZEILE_REDUNDANT:              " + line + "\n");
 					}
 				}
-
 			}
 		}
 
@@ -104,35 +107,66 @@ public class DataParser {
 		}
 
 		/* Objekte neu einlesen */
-		List<Produkt> objekteDeserialisiert = readProduktObjekte();
+		List<Produkt> objekteDeserialisiert = new ArrayList<>();
+		try {
+			objekteDeserialisiert = readProduktObjekte();
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			System.out.println("Leider ist etwas schief gegangen");
+		}
 
 		/*
 		 * Zur Kontrolle: Anzahl der deserialisierten Produkt-Objekte ausgeben
 		 */
 		System.out.println("Anzahl deserialisierter Produkt-Objekte: " + objekteDeserialisiert.size() + "\n");
 
-		/* TODO - Das Teuerste Produkt finden */
-		Produkt teuersteProdukt = null;
-
+		/* TODO - Das Teuerste Produkt finden */	
+		Comparator<Produkt> compProdukt = new Comparator<Produkt>() {
+            public int compare(Produkt p1, Produkt p2) {
+                return Double.compare(p1.getPreis(), p2.getPreis());
+            }
+        };
+		
+		Produkt teuersteProdukt = Collections.max(objekteDeserialisiert, compProdukt);
+		
 		/*
 		 * Zur Kontrolle: Den Namen, den Code und den Preis des teuersten Produkts
 		 * ausgeben
 		 */
 		System.out.println("Das teuerste Produkt:\n  Name:  " + teuersteProdukt.getProduktName() + " ["
-				+ teuersteProdukt.getProduktCode() + "]\n  Preis: " + teuersteProdukt.getPreis());
+				+ teuersteProdukt.getProduktCode() + "]\n  Preis: " + teuersteProdukt.getPreis()
+				+ "\n  Verfuegbar ab: " + teuersteProdukt.getVerfuegbarAb());
 
+		// showProdukte(objekteDeserialisiert);
 		/* TODO - Produkt finden, auf das am laengsten gewartet werden muss */
+		
 		Produkt produktAmLaengstenNichtVerfuegbar = null;
-
+		try {
+			Comparator<Produkt> compDate = Comparator.comparing(Produkt::getVerfuegbarAb);
+			produktAmLaengstenNichtVerfuegbar = Collections.min(objekteDeserialisiert, compDate);
+		} catch (NoSuchElementException nse) {
+		    LOGGER.error("No elements in the list", nse);
+		    System.out.println("Die Liste ist leer"); 
+		} catch (NullPointerException npe) {
+			LOGGER.error(npe.getMessage(), npe);
+			System.out.println("Das Datum ist NULL");
+		}
+		
 		/*
 		 * Verfuegbarkeitsdatum des Produkt ausgeben, auf das am laengsten zu warten ist
 		 * ausgeben
 		 */
-		System.out.println("\nProdukt, auf das am laengsten zu warten ist:\n  "
-				+ produktAmLaengstenNichtVerfuegbar.getProduktName() + " ["
-				+ produktAmLaengstenNichtVerfuegbar.getProduktCode() + "]\n  Verfuegbar ab: "
-				+ produktAmLaengstenNichtVerfuegbar.getVerfuegbarAb());
+		try {
+			System.out.println("\nProdukt, auf das am laengsten zu warten ist:\n  "
+					+ produktAmLaengstenNichtVerfuegbar.getProduktName() + " ["
+					+ produktAmLaengstenNichtVerfuegbar.getProduktCode() + "]\n  Verfuegbar ab: "
+					+ produktAmLaengstenNichtVerfuegbar.getVerfuegbarAb());
+		} catch (NullPointerException npe) {
+			LOGGER.error(npe.getMessage(), npe);
+			System.out.println("Das Datum ist NULL");
+		}
 
+		
 	}
 
 	private static Produkt parseProdukt(String line) {
@@ -144,8 +178,9 @@ public class DataParser {
 
 		// produkt_nr#beschreibung#max_bestand#min_bestand#produkt_name#preis#code#tablar_nr#lieferant_nr#verfuegbar_ab
 
-		Produkt produkt = new Produkt(0, line, 0, 0, line, 0, line, 0, 0, null);
-
+		//Produkt produkt = new Produkt(0, line, 0, 0, line, 0, line, 0, 0, null);
+		Produkt produkt = null;
+		
 		/*
 		 * Die einzelne durch DELIMITER getrennte Teile der Zeile in ein String-Array
 		 * ablegen, das DELIMITER-Zeichen wird nicht 'mitgenommen' (siehe API der
@@ -261,7 +296,7 @@ public class DataParser {
 		}
 	}
 
-	private static List<Produkt> readProduktObjekte() {
+	private static List<Produkt> readProduktObjekte() throws FileNotFoundException, IOException, ClassNotFoundException {
 		// TODO - Objekte aus der Datei einlesen (per DeSerialisierung) und zurueck
 		// geben.
 		List<Produkt> liste = null;
@@ -272,5 +307,13 @@ public class DataParser {
 			LOGGER.warn(e.getMessage(), e);
 		}
 		return liste != null ? liste : new ArrayList<Produkt>();
+	}
+	
+	private static void showProdukte (Collection<Produkt> c) {
+		System.out.println("Anzahl Produkte: " + c.size());
+		for (Iterator<Produkt> it = c.iterator(); it.hasNext(); ) {
+			System.out.println(it.next());
+		}
+		System.out.println();
 	}
 }
