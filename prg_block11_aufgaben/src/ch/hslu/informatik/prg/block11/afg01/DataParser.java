@@ -296,6 +296,7 @@ public class DataParser {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private static List<Produkt> readProduktObjekte() throws FileNotFoundException, IOException, ClassNotFoundException {
 		// TODO - Objekte aus der Datei einlesen (per DeSerialisierung) und zurueck
 		// geben.
@@ -309,6 +310,7 @@ public class DataParser {
 		return liste != null ? liste : new ArrayList<Produkt>();
 	}
 	
+	@SuppressWarnings("unused")
 	private static void showProdukte (Collection<Produkt> c) {
 		System.out.println("Anzahl Produkte: " + c.size());
 		for (Iterator<Produkt> it = c.iterator(); it.hasNext(); ) {
