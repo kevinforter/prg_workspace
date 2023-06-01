@@ -137,9 +137,7 @@ public class DataParser {
 				+ teuersteProdukt.getProduktCode() + "]\n  Preis: " + teuersteProdukt.getPreis()
 				+ "\n  Verfuegbar ab: " + teuersteProdukt.getVerfuegbarAb());
 
-		// showProdukte(objekteDeserialisiert);
-		/* TODO - Produkt finden, auf das am laengsten gewartet werden muss */
-		
+		/* TODO - Produkt finden, auf das am laengsten gewartet werden muss */		
 		Produkt produktAmLaengstenNichtVerfuegbar = null;
 		try {
 			Comparator<Produkt> compDate = Comparator.comparing(Produkt::getVerfuegbarAb);
@@ -160,11 +158,13 @@ public class DataParser {
 			System.out.println("\nProdukt, auf das am laengsten zu warten ist:\n  "
 					+ produktAmLaengstenNichtVerfuegbar.getProduktName() + " ["
 					+ produktAmLaengstenNichtVerfuegbar.getProduktCode() + "]\n  Verfuegbar ab: "
-					+ produktAmLaengstenNichtVerfuegbar.getVerfuegbarAb());
+					+ produktAmLaengstenNichtVerfuegbar.getVerfuegbarAb() + "\n");
 		} catch (NullPointerException npe) {
 			LOGGER.error(npe.getMessage(), npe);
 			System.out.println("Das Datum ist NULL");
 		}
+		
+		showProdukte(objekteDeserialisiert);
 
 		
 	}

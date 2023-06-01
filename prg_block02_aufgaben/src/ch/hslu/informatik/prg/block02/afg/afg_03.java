@@ -1,4 +1,4 @@
-package ch.hslu.informatik.prg.block2.afg;
+package ch.hslu.informatik.prg.block02.afg;
 
 public class afg_03 {
 
