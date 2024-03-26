@@ -57,16 +57,14 @@ public class ClientApp {
         } while (!validInput);
 
 
-        LedColor color;
-        switch(colorSelect)
-        {
-            case 1: color = LedColor.RED; break;
-            case 2: color = LedColor.GREEN;break;
-            case 3: color = LedColor.YELLOW; break;
-            case 4: color = LedColor.BLUE;break;
-            case 5: color = LedColor.RANDOM;break;
-            default: color = LedColor.RED; break;
-        }
+        LedColor color = switch (colorSelect) {
+            case 1 -> LedColor.RED;
+            case 2 -> LedColor.GREEN;
+            case 3 -> LedColor.YELLOW;
+            case 4 -> LedColor.BLUE;
+            case 5 -> LedColor.RANDOM;
+            default -> null;
+        };
 
         // 2. LED hinzufügen
         ledArr = service.add(rows, color);
