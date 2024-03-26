@@ -36,6 +36,6 @@ public class FlaecheRechner {
     }
 
     static long berechneFlaeche (int breite, int hoehe) {
-        return breite * hoehe;
+        return (long) breite * hoehe;
     }
 }

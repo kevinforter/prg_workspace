@@ -18,7 +18,7 @@ public class afg_06 {
             System.out.println("Eingabe nicht korrekt.");
         } else {
             /* Berechnung */
-            if (pZahl % 3 == 0 || pZahl % 2 == 0 || pZahl % 5 == 0 || pZahl % 7 == 0 || pZahl % 9 == 0) {
+            if (pZahl % 3 == 0 && pZahl != 3 || pZahl % 2 == 0 && pZahl != 2 || pZahl % 5 == 0 && pZahl != 5 || pZahl % 7 == 0 && pZahl != 7 || pZahl % 9 == 0) {
                 System.out.println("Die Zahl " + pZahl + " ist keine Primzahl.");
             } else {
                 System.out.println("Die Zahl " + pZahl + " ist eine Primzahl.");
