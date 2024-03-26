@@ -10,6 +10,7 @@ public class ClientApp {
 
     // Variablen
     private static final int MAX_ROWS = BoardService.MAX_ROWS;
+    private static final int MAX_COLS = BoardService.LEDS_PER_ROW;
 
     private static int rows;
     private static Led[][] ledArr;
@@ -32,8 +33,8 @@ public class ClientApp {
             System.out.print("Geben sie die Anzahl hinzuzufügenden LED Reihen an: ");
             rows = sc.nextInt();
 
-            if (rows > MAX_ROWS || rows < 0) {
-                System.out.println("Gültige anzahl Reihen [0 - " + MAX_ROWS + "]");
+            if (rows > MAX_ROWS || rows < 1) {
+                System.out.println("Gültige anzahl Reihen [1 - " + MAX_ROWS + "]");
                 validInput = false;
             } else {
                 validInput = true;
@@ -78,7 +79,7 @@ public class ClientApp {
 
             // 4. Einschalten
             for (int y = rows - 1; y >= 0; y--) {
-                for (int j = ledArr.length - 1; j >= 0; j--) {
+                for (int j = MAX_COLS -1; j >= 0; j--) {
                     (ledArr[y][j]).turnOn();
                     service.pauseExecution(50);
                 }
@@ -89,7 +90,7 @@ public class ClientApp {
 
             // 6. Ausschalten
             for (int y = 0; y < rows; y++) {
-                for (int j = 0; j < ledArr.length; j++) {
+                for (int j = 0; j < MAX_COLS; j++) {
                     (ledArr[y][j]).turnOff();
                     service.pauseExecution(50);
                 }
