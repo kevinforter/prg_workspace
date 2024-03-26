@@ -35,24 +35,34 @@ public class ClientApp {
         // 3. Pause
         service.pauseExecution(2000);
 
-        // 4. Einschalten
-        for (int i = rows-1; i >= 0; i--) {
-            for (int j = ledArr.length-1; j >= 0; j--) {
-                (ledArr[i][j]).turnOn();
+        // 8. 4-7 3mal wiederholen
+        for (int i = 0; i <= 3; i++) {
+
+            // 4. Einschalten
+            for (int y = rows - 1; y >= 0; y--) {
+                for (int j = ledArr.length - 1; j >= 0; j--) {
+                    (ledArr[y][j]).turnOn();
+                }
             }
+
+            // 5. Pause
+            service.pauseExecution(250);
+
+            // 6. Ausschalten
+            for (int y = 0; y < rows; y++) {
+                for (int j = 0; j < ledArr.length; j++) {
+                    (ledArr[y][j]).turnOff();
+                }
+            }
+
+            // 7. Pause
+            service.pauseExecution(250);
         }
 
-        // 5. Pause
-        service.pauseExecution(250);
+        // 9. Pause
+        service.pauseExecution(2000);
 
-        // 6. Ausschalten
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < ledArr.length; j++) {
-                (ledArr[i][j]).turnOff();
-            }
-        }
-
-        // 6. Pause
-        service.pauseExecution(250);
+        // 10. Zurücksetzen
+        service.removeAllLeds();
     }
 }
