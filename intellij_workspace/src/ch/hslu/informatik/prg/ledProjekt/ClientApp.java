@@ -190,14 +190,10 @@ public class ClientApp {
         int squareLength = sc.nextInt();
 
         // Aufruf 6.1
-        System.out.println("Wollen Sie mit oder ohne Diagonalen?");
+        System.out.println("Wollen Sie mit oder ohne Diagonalen?\n [1] - YES\n [2] - NO");
         int digSelect = sc.nextInt();
 
-        boolean dig = switch (digSelect) {
-            case 1 -> dig = true;
-            case 2 -> dig = false;
-            default -> dig = false;
-        };
+        boolean dig = digSelect == 1;
 
         // 4
         for (int i = 0; i < squareLength; i++) {
@@ -206,6 +202,8 @@ public class ClientApp {
             (ledArr[rowTopLeft + squareLength - 1][colTopLeft + i]).turnOn();
             (ledArr[rowTopLeft + i][colTopLeft + squareLength - 1]).turnOn();
         }
+
+        if (dig) showSquare(squareLength, rowTopLeft, colTopLeft);
     }
 
     // 6.2
