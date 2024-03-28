@@ -174,20 +174,37 @@ public class ClientApp {
 
     private static void showSquare(BoardService service, Scanner sc) {
 
+        int squareLength;
+        int rowTopLeft;
+        int colTopLeft;
+
         // 1. Max Reihen hinzufügen
         ledArr = service.add(MAX_ROWS);
 
-        // 2.
-        System.out.println("Geben sie die Koordinaten für [topLeft] an");
-        System.out.print("Zeile  [0 - 31]: ");
-        int rowTopLeft = sc.nextInt();
-        System.out.print("Spalte [0 - 31]: ");
-        int colTopLeft = sc.nextInt();
+        // 2. Abfrage Koordinaten
 
-        // 3.
-        System.out.println("Geben sie die länge des Quadrates an: ");
-        System.out.print("Länge [0 - 32]: ");
-        int squareLength = sc.nextInt();
+        validInput = false;
+        do {
+            System.out.println("Geben sie die Koordinaten für [topLeft] an");
+            System.out.print("Zeile  [0 - 31]: ");
+            rowTopLeft = sc.nextInt();
+            System.out.print("Spalte [0 - 31]: ");
+            colTopLeft = sc.nextInt();
+
+            validInput = rowTopLeft >= 0 && rowTopLeft <= ledArr.length-1 && colTopLeft >= 0 && colTopLeft <= ledArr.length-1;
+
+        } while (!validInput);
+
+        // 3. Abfragen Länge
+        validInput = false;
+        do {
+            System.out.println("Geben sie die länge des Quadrates an: ");
+            System.out.print("Länge [0 - 32]: ");
+            squareLength = sc.nextInt();
+
+            validInput = squareLength >= 0 && squareLength <= ledArr.length;
+
+        } while (!validInput);
 
         // Aufruf 6.1
         System.out.println("Wollen Sie mit oder ohne Diagonalen?\n [1] - YES\n [2] - NO");
@@ -195,7 +212,7 @@ public class ClientApp {
 
         boolean dig = digSelect == 1;
 
-        // 4
+        // 4. Quadrat zeichnen
         for (int i = 0; i < squareLength; i++) {
             (ledArr[rowTopLeft][colTopLeft + i]).turnOn();
             (ledArr[rowTopLeft + i][colTopLeft]).turnOn();
@@ -206,7 +223,7 @@ public class ClientApp {
         if (dig) showSquare(squareLength, rowTopLeft, colTopLeft);
     }
 
-    // 6.2
+    // 6.2 Diagonale zeichnen
     private static void showSquare(int squareLength, int rowTopLeft, int colTopLeft) {
         for (int i = 0; i < squareLength; i++) {
             (ledArr[rowTopLeft + i][colTopLeft + i]).turnOn();
