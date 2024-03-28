@@ -11,7 +11,6 @@ public class ClientApp {
     // Variablen
     private static final int MAX_ROWS = BoardService.MAX_ROWS;
     private static final int MAX_COLS = BoardService.LEDS_PER_ROW;
-
     private static int rows;
     private static Led[][] ledArr;
     private static boolean validInput = false;
@@ -21,7 +20,9 @@ public class ClientApp {
         final BoardService service = new BoardService();
         final Scanner sc = new Scanner(System.in);
 
-        ledsOnOff(service, sc);
+        // Aufruf Methoden
+        //ledsOnOff(service, sc);
+        switchEvenOdd(service, sc);
 
     }
 
@@ -103,5 +104,38 @@ public class ClientApp {
 
         // 10. Zurücksetzen
         service.removeAllLeds();
+    }
+
+    private static void switchEvenOdd(BoardService service, Scanner sc) {
+
+        // 1. Eingabe
+        do {
+            // 1. Eingabe
+            System.out.print("Geben sie die Anzahl hinzuzufügenden LED Reihen an: ");
+            rows = sc.nextInt();
+
+            if (rows > MAX_ROWS || rows < 1) {
+                System.out.println("Gültige anzahl Reihen [1 - " + MAX_ROWS + "]");
+                validInput = false;
+            } else {
+                validInput = true;
+            }
+        } while (!validInput);
+
+        // 2. LED hinzufügen und Pause
+        ledArr = service.add(rows);
+        service.pauseExecution(2000);
+
+        // 3. Gerade Lampen einschalten
+        for (int y = 0; y < rows; y++) {
+            for (int j = 0; j < MAX_COLS; j++) {
+                if (j % 2 == 0) {
+                    (ledArr[y][j]).turnOn();
+                }
+            }
+        }
+
+        // 4. Pause
+        service.pauseExecution(1000);
     }
 }

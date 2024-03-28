@@ -1,4 +1,4 @@
-package Block_04.Aufgaben.afg_03;
+package ch.hslu.informatik.prg.Block_04.afg_03;
 
 public class FlaecheRechner {
     public static void main(String[] args) {

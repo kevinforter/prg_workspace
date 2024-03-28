@@ -1,4 +1,4 @@
-package Block_02.Aufgaben;
+package ch.hslu.informatik.prg.Block_02;
 
 public class afg_03 {
     public static void main(String[] args) {

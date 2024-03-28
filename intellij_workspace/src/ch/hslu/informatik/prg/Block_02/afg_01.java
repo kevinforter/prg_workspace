@@ -1,4 +1,4 @@
-package Block_02.Aufgaben;
+package ch.hslu.informatik.prg.Block_02;
 import java.util.Scanner;
 
 public class afg_01 {

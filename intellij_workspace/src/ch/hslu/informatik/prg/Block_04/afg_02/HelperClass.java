@@ -1,4 +1,4 @@
-package Block_04.Aufgaben.afg_02;
+package ch.hslu.informatik.prg.Block_04.afg_02;
 import java.util.Scanner;
 
 public class HelperClass {

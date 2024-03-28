@@ -1,4 +1,4 @@
-package Block_04.Aufgaben.afg_01;
+package ch.hslu.informatik.prg.Block_04.afg_01;
 
 public class Modul {
     public String name;
