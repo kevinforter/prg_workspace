@@ -9,7 +9,6 @@ public class ClientApp {
 
     // Variablen
     private static final int MAX_ROWS = BoardService.MAX_ROWS;
-    private static final int MAX_COLS = BoardService.LEDS_PER_ROW;
     private static int rows;
     private static Led[][] ledArr;
     private static boolean validInput = false;
@@ -20,27 +19,27 @@ public class ClientApp {
         final BoardService service = new BoardService();
         final Scanner sc = new Scanner(System.in);
 
-        // Aufruf Methoden
-        //ledsOnOff(service, sc);
-        //switchEvenOdd(service, sc);
-        //switchRandom(service, sc);
-        showSquare(service, sc);
+        System.out.print("Programm Nummer: ");
+        int selection = sc.nextInt();
 
+        switch (selection) {
+            // Aufruf Methoden
+            case 1 -> ledsOnOff(service, sc);
+            case 2 -> switchEvenOdd(service, sc);
+            //case 3 -> switchRandom(service, sc);
+            case 4 -> showSquare(service, sc);
+        }
     }
 
     private static void ledsOnOff(BoardService service, Scanner sc) {
 
         // 1. Eingabe
         do {
-            System.out.print("Geben sie die Anzahl hinzuzufügenden LED Reihen an: ");
+            System.out.print("Anzahl hinzuzufügenden LED Reihen [1 - " + MAX_ROWS + "]: ");
             rows = sc.nextInt();
 
-            if (rows > MAX_ROWS || rows < 1) {
-                System.out.println("Gültige anzahl Reihen [1 - " + MAX_ROWS + "]");
-                validInput = false;
-            } else {
-                validInput = true;
-            }
+            validInput = rows <= MAX_ROWS && rows >= 1;
+
         } while (!validInput);
 
         // 1.2 Eingabe Farbe
@@ -48,13 +47,6 @@ public class ClientApp {
         do {
             System.out.print("Geben sie die Farbe der LEDs an\n (1) ROT\n (2) GRUEN\n (3) GELB\n (4) BLAU\n (5) FARBIG\nAuswahl: ");
             colorSelect = sc.nextInt();
-
-            if (colorSelect < 1 || colorSelect > 5) {
-                System.out.println("Gültige Auswahl [1 - 5]");
-                validInput = false;
-            } else {
-                validInput = true;
-            }
 
         } while (!validInput);
 
@@ -65,7 +57,7 @@ public class ClientApp {
             case 3 -> LedColor.YELLOW;
             case 4 -> LedColor.BLUE;
             case 5 -> LedColor.RANDOM;
-            default -> null;
+            default -> LedColor.RED;
         };
 
         // 2. LED hinzufügen
@@ -89,9 +81,9 @@ public class ClientApp {
             service.pauseExecution(250);
 
             // 6. Ausschalten
-            for (int y = 0; y < rows; y++) {
-                for (int j = 0; j < MAX_COLS; j++) {
-                    (ledArr[y][j]).turnOff();
+            for (Led[] row : ledArr) {
+                for (Led led : row) {
+                    led.turnOff();
                     service.pauseExecution(50);
                 }
             }
@@ -111,15 +103,11 @@ public class ClientApp {
 
         // 1. Eingabe
         do {
-            System.out.print("Geben sie die Anzahl hinzuzufügenden LED Reihen an: ");
+            System.out.print("Anzahl hinzuzufügenden LED Reihen [1 - " + MAX_ROWS + "]: ");
             rows = sc.nextInt();
 
-            if (rows > MAX_ROWS || rows < 1) {
-                System.out.println("Gültige anzahl Reihen [1 - " + MAX_ROWS + "]");
-                validInput = false;
-            } else {
-                validInput = true;
-            }
+            validInput = rows <= MAX_ROWS && rows >= 1;
+
         } while (!validInput);
 
         // 2. LED hinzufügen und Pause
@@ -130,13 +118,14 @@ public class ClientApp {
         for (int i = 0; i <= 3; i++) {
 
             // 3. Gerade Lampen einschalten
-            for (int y = 0; y < rows; y++) {
-                for (int j = 0; j < MAX_COLS; j++) {
-                    if ((ledArr[y][j]).getLedId() % 2 == 0) {
-                        (ledArr[y][j]).turnOn();
+            for (Led[] row : ledArr) {
+                for (Led led : row) {
+                    if (led.getLedId() % 2 == 0) {
+                        led.turnOn();
                     } else {
-                        (ledArr[y][j]).turnOff();
+                        led.turnOff();
                     }
+                    service.pauseExecution(50);
                 }
             }
 
@@ -144,13 +133,14 @@ public class ClientApp {
             service.pauseExecution(1000);
 
             // 5. Ein Aus Switch
-            for (int y = 0; y < rows; y++) {
-                for (int j = 0; j < MAX_COLS; j++) {
-                    if ((ledArr[y][j]).isOn()) {
-                        (ledArr[y][j]).turnOff();
+            for (Led[] row : ledArr) {
+                for (Led led : row) {
+                    if (led.isOn()) {
+                        led.turnOff();
                     } else {
-                        (ledArr[y][j]).turnOn();
+                        led.turnOn();
                     }
+                    service.pauseExecution(50);
                 }
             }
 
@@ -159,9 +149,10 @@ public class ClientApp {
         }
 
         // 8. Alle ausschalten
-        for (int y = 0; y < rows; y++) {
-            for (int j = 0; j < MAX_COLS; j++) {
-                (ledArr[y][j]).turnOff();
+        for (Led[] row : ledArr) {
+            for (Led led : row) {
+                if(led.isOn()) led.turnOff();
+                service.pauseExecution(50);
             }
         }
 
@@ -182,13 +173,11 @@ public class ClientApp {
         ledArr = service.add(MAX_ROWS);
 
         // 2. Abfrage Koordinaten
-
-        validInput = false;
         do {
             System.out.println("Geben sie die Koordinaten für [topLeft] an");
-            System.out.print("Zeile  [0 - 31]: ");
+            System.out.print("Zeile  [0 - " + (ledArr.length-1) + "]: ");
             rowTopLeft = sc.nextInt();
-            System.out.print("Spalte [0 - 31]: ");
+            System.out.print("Spalte [0 - " + (ledArr.length-1) + "]: ");
             colTopLeft = sc.nextInt();
 
             validInput = rowTopLeft >= 0 && rowTopLeft <= ledArr.length-1 && colTopLeft >= 0 && colTopLeft <= ledArr.length-1;
@@ -196,21 +185,18 @@ public class ClientApp {
         } while (!validInput);
 
         // 3. Abfragen Länge
-        validInput = false;
         do {
             System.out.println("Geben sie die länge des Quadrates an: ");
-            System.out.print("Länge [0 - 32]: ");
+            System.out.print("Länge [0 - " + ledArr.length + "]: ");
             squareLength = sc.nextInt();
 
-            validInput = squareLength >= 0 && squareLength <= ledArr.length;
+            validInput = squareLength >= 0 && squareLength + rowTopLeft <= ledArr.length && squareLength + colTopLeft <= ledArr.length;
 
         } while (!validInput);
 
-        // Aufruf 6.1
-        System.out.println("Wollen Sie mit oder ohne Diagonalen?\n [1] - YES\n [2] - NO");
+        // Aufruf 6.2
+        System.out.println("Wollen Sie mit oder ohne Diagonalen?\n [1] - YES\n [2] - NO\nAuswahl: ");
         int digSelect = sc.nextInt();
-
-        boolean dig = digSelect == 1;
 
         // 4. Quadrat zeichnen
         for (int i = 0; i < squareLength; i++) {
@@ -220,7 +206,7 @@ public class ClientApp {
             (ledArr[rowTopLeft + i][colTopLeft + squareLength - 1]).turnOn();
         }
 
-        if (dig) showSquare(squareLength, rowTopLeft, colTopLeft);
+        if (digSelect == 1) showSquare(squareLength, rowTopLeft, colTopLeft);
     }
 
     // 6.2 Diagonale zeichnen
