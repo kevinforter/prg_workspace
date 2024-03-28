@@ -124,25 +124,45 @@ public class ClientApp {
         ledArr = service.add(rows);
         service.pauseExecution(2000);
 
-        // 3. Gerade Lampen einschalten
-        for (int y = 0; y < rows; y++) {
-            for (int j = 0; j < MAX_COLS; j++) {
-                if ((ledArr[y][j]).getLedId() % 2 == 0) (ledArr[y][j]).turnOn();
-            }
-        }
+        // 7. Wiederholung 3-6 (3x)
+        for (int i = 0; i <= 3; i++) {
 
-        // 4. Pause
-        service.pauseExecution(1000);
-
-        // 5. Ein Aus Switch
-        for (int y = 0; y < rows; y++) {
-            for (int j = 0; j < MAX_COLS; j++) {
-                if ((ledArr[y][j]).isOn()) {
-                    (ledArr[y][j]).turnOff();
-                } else {
-                    (ledArr[y][j]).turnOn();
+            // 3. Gerade Lampen einschalten
+            for (int y = 0; y < rows; y++) {
+                for (int j = 0; j < MAX_COLS; j++) {
+                    if ((ledArr[y][j]).getLedId() % 2 == 0) (ledArr[y][j]).turnOn();
                 }
             }
+
+            // 4. Pause
+            service.pauseExecution(1000);
+
+            // 5. Ein Aus Switch
+            for (int y = 0; y < rows; y++) {
+                for (int j = 0; j < MAX_COLS; j++) {
+                    if ((ledArr[y][j]).isOn()) {
+                        (ledArr[y][j]).turnOff();
+                    } else {
+                        (ledArr[y][j]).turnOn();
+                    }
+                }
+            }
+
+            // 6. Pause
+            service.pauseExecution(1000);
         }
+
+        // 8. Alle ausschalten
+        for (int y = 0; y < rows; y++) {
+            for (int j = 0; j < MAX_COLS; j++) {
+                (ledArr[y][j]).turnOff();
+            }
+        }
+
+        // 9. Pause
+        service.pauseExecution(2000);
+
+        // 10. Zurücksetzen
+        service.removeAllLeds();
     }
 }
