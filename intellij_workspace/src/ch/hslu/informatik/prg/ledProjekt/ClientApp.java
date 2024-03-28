@@ -127,13 +127,22 @@ public class ClientApp {
         // 3. Gerade Lampen einschalten
         for (int y = 0; y < rows; y++) {
             for (int j = 0; j < MAX_COLS; j++) {
-                if (ledArr[y][j].getLedId() % 2 == 0) {
-                    (ledArr[y][j]).turnOn();
-                }
+                if ((ledArr[y][j]).getLedId() % 2 == 0) (ledArr[y][j]).turnOn();
             }
         }
 
         // 4. Pause
         service.pauseExecution(1000);
+
+        // 5. Ein Aus Switch
+        for (int y = 0; y < rows; y++) {
+            for (int j = 0; j < MAX_COLS; j++) {
+                if ((ledArr[y][j]).isOn()) {
+                    (ledArr[y][j]).turnOff();
+                } else {
+                    (ledArr[y][j]).turnOn();
+                }
+            }
+        }
     }
 }
