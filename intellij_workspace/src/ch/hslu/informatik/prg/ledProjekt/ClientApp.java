@@ -30,7 +30,6 @@ public class ClientApp {
 
         // 1. Eingabe
         do {
-            // 1. Eingabe
             System.out.print("Geben sie die Anzahl hinzuzufügenden LED Reihen an: ");
             rows = sc.nextInt();
 
@@ -110,7 +109,6 @@ public class ClientApp {
 
         // 1. Eingabe
         do {
-            // 1. Eingabe
             System.out.print("Geben sie die Anzahl hinzuzufügenden LED Reihen an: ");
             rows = sc.nextInt();
 
@@ -129,7 +127,7 @@ public class ClientApp {
         // 3. Gerade Lampen einschalten
         for (int y = 0; y < rows; y++) {
             for (int j = 0; j < MAX_COLS; j++) {
-                if (j % 2 == 0) {
+                if (ledArr[y][j].getLedId() % 2 == 0) {
                     (ledArr[y][j]).turnOn();
                 }
             }
