@@ -1,10 +1,9 @@
 package ch.hslu.informatik.prg.ledProjekt;
 
-import ch.hslu.prg.ledboard.proxy.Led;
-import ch.hslu.prg.ledboard.proxy.BoardService;
-import ch.hslu.prg.ledboard.proxy.LedColor;
+import ch.hslu.prg.ledboard.proxy.*;
 
 import java.util.Scanner;
+import java.util.random.*;
 
 public class ClientApp {
 
@@ -14,6 +13,7 @@ public class ClientApp {
     private static int rows;
     private static Led[][] ledArr;
     private static boolean validInput = false;
+
     public static void main(String[] args) {
 
         // Instanzen
@@ -22,7 +22,9 @@ public class ClientApp {
 
         // Aufruf Methoden
         //ledsOnOff(service, sc);
-        switchEvenOdd(service, sc);
+        //switchEvenOdd(service, sc);
+        //switchRandom(service, sc);
+        showSquare(service, sc);
 
     }
 
@@ -76,9 +78,9 @@ public class ClientApp {
         for (int i = 0; i <= 3; i++) {
 
             // 4. Einschalten
-            for (int y = rows - 1; y >= 0; y--) {
-                for (int j = MAX_COLS -1; j >= 0; j--) {
-                    (ledArr[y][j]).turnOn();
+            for (int row = ledArr.length - 1; row >= 0; row--) {
+                for (int col = ledArr[row].length - 1; col >= 0; col--) {
+                    (ledArr[row][col]).turnOn();
                     service.pauseExecution(50);
                 }
             }
@@ -130,7 +132,11 @@ public class ClientApp {
             // 3. Gerade Lampen einschalten
             for (int y = 0; y < rows; y++) {
                 for (int j = 0; j < MAX_COLS; j++) {
-                    if ((ledArr[y][j]).getLedId() % 2 == 0) (ledArr[y][j]).turnOn();
+                    if ((ledArr[y][j]).getLedId() % 2 == 0) {
+                        (ledArr[y][j]).turnOn();
+                    } else {
+                        (ledArr[y][j]).turnOff();
+                    }
                 }
             }
 
@@ -164,5 +170,49 @@ public class ClientApp {
 
         // 10. Zurücksetzen
         service.removeAllLeds();
+    }
+
+    private static void showSquare(BoardService service, Scanner sc) {
+
+        // 1. Max Reihen hinzufügen
+        ledArr = service.add(MAX_ROWS);
+
+        // 2.
+        System.out.println("Geben sie die Koordinaten für [topLeft] an");
+        System.out.print("Zeile  [0 - 31]: ");
+        int rowTopLeft = sc.nextInt();
+        System.out.print("Spalte [0 - 31]: ");
+        int colTopLeft = sc.nextInt();
+
+        // 3.
+        System.out.println("Geben sie die länge des Quadrates an: ");
+        System.out.print("Länge [0 - 32]: ");
+        int squareLength = sc.nextInt();
+
+        // Aufruf 6.1
+        System.out.println("Wollen Sie mit oder ohne Diagonalen?");
+        int digSelect = sc.nextInt();
+
+        boolean dig = switch (digSelect) {
+            case 1 -> dig = true;
+            case 2 -> dig = false;
+            default -> dig = false;
+        };
+
+        // 4
+        for (int i = 0; i < squareLength; i++) {
+            (ledArr[rowTopLeft][colTopLeft + i]).turnOn();
+            (ledArr[rowTopLeft + i][colTopLeft]).turnOn();
+            (ledArr[rowTopLeft + squareLength - 1][colTopLeft + i]).turnOn();
+            (ledArr[rowTopLeft + i][colTopLeft + squareLength - 1]).turnOn();
+        }
+    }
+
+    // 6.2
+    private static void showSquare(int squareLength, int rowTopLeft, int colTopLeft) {
+        for (int i = 0; i < squareLength; i++) {
+            (ledArr[rowTopLeft + i][colTopLeft + i]).turnOn();
+            (ledArr[(rowTopLeft + squareLength - 1) - i][colTopLeft + i]).turnOn();
+        }
     }
 }
