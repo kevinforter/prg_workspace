@@ -2,6 +2,7 @@ package ch.hslu.informatik.prg.ledProjekt;
 
 import ch.hslu.prg.ledboard.proxy.*;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.random.*;
 
@@ -28,12 +29,14 @@ public class ClientApp {
             case 2 -> switchEvenOdd(service, sc);
             //case 3 -> switchRandom(service, sc);
             case 4 -> showSquare(service, sc);
+            case 9 -> createRunningLight(service);
         }
     }
 
     private static void ledsOnOff(BoardService service, Scanner sc) {
 
         // 1. Eingabe
+        validInput = false;
         do {
             System.out.print("Anzahl hinzuzufügenden LED Reihen [1 - " + MAX_ROWS + "]: ");
             rows = sc.nextInt();
@@ -43,16 +46,10 @@ public class ClientApp {
         } while (!validInput);
 
         // 1.2 Eingabe Farbe
-        int colorSelect = 0;
-        do {
-            System.out.print("Geben sie die Farbe der LEDs an\n (1) ROT\n (2) GRUEN\n (3) GELB\n (4) BLAU\n (5) FARBIG\nAuswahl: ");
-            colorSelect = sc.nextInt();
-
-        } while (!validInput);
-
+        System.out.print("Geben sie die Farbe der LEDs an\n (1) ROT\n (2) GRUEN\n (3) GELB\n (4) BLAU\n (5) FARBIG\nAuswahl: ");
+        int colorSelect = sc.nextInt();
 
         LedColor color = switch (colorSelect) {
-            case 1 -> LedColor.RED;
             case 2 -> LedColor.GREEN;
             case 3 -> LedColor.YELLOW;
             case 4 -> LedColor.BLUE;
@@ -69,7 +66,7 @@ public class ClientApp {
         // 8. Wiederholung 4-7 (3x)
         for (int i = 0; i <= 3; i++) {
 
-            // 4. Einschalten
+            // 4. Einschalten (Rechts unten → links oben)
             for (int row = ledArr.length - 1; row >= 0; row--) {
                 for (int col = ledArr[row].length - 1; col >= 0; col--) {
                     (ledArr[row][col]).turnOn();
@@ -102,6 +99,7 @@ public class ClientApp {
     private static void switchEvenOdd(BoardService service, Scanner sc) {
 
         // 1. Eingabe
+        validInput = false;
         do {
             System.out.print("Anzahl hinzuzufügenden LED Reihen [1 - " + MAX_ROWS + "]: ");
             rows = sc.nextInt();
@@ -151,7 +149,7 @@ public class ClientApp {
         // 8. Alle ausschalten
         for (Led[] row : ledArr) {
             for (Led led : row) {
-                if(led.isOn()) led.turnOff();
+                if (led.isOn()) led.turnOff();
                 service.pauseExecution(50);
             }
         }
@@ -173,18 +171,20 @@ public class ClientApp {
         ledArr = service.add(MAX_ROWS);
 
         // 2. Abfrage Koordinaten
+        validInput = false;
         do {
             System.out.println("Geben sie die Koordinaten für [topLeft] an");
-            System.out.print("Zeile  [0 - " + (ledArr.length-1) + "]: ");
+            System.out.print("Zeile  [0 - " + (ledArr.length - 1) + "]: ");
             rowTopLeft = sc.nextInt();
-            System.out.print("Spalte [0 - " + (ledArr.length-1) + "]: ");
+            System.out.print("Spalte [0 - " + (ledArr.length - 1) + "]: ");
             colTopLeft = sc.nextInt();
 
-            validInput = rowTopLeft >= 0 && rowTopLeft <= ledArr.length-1 && colTopLeft >= 0 && colTopLeft <= ledArr.length-1;
+            validInput = rowTopLeft >= 0 && rowTopLeft <= ledArr.length - 1 && colTopLeft >= 0 && colTopLeft <= ledArr.length - 1;
 
         } while (!validInput);
 
         // 3. Abfragen Länge
+        validInput = false;
         do {
             System.out.println("Geben sie die länge des Quadrates an: ");
             System.out.print("Länge [0 - " + ledArr.length + "]: ");
@@ -214,6 +214,39 @@ public class ClientApp {
         for (int i = 0; i < squareLength; i++) {
             (ledArr[rowTopLeft + i][colTopLeft + i]).turnOn();
             (ledArr[(rowTopLeft + squareLength - 1) - i][colTopLeft + i]).turnOn();
+        }
+    }
+
+    private static void createRunningLight(BoardService service) {
+
+        // 1. Eine Reihe hinzufügen
+        ledArr = service.add(1);
+
+        // 2. Farbe ersetzen
+        for (int col = ledArr[0].length - 1; col >= 0; col--) {
+
+            if (col <= 31 && col > 23) {
+                ledArr[0][col] = service.replace(ledArr[0][col], LedColor.GREEN);
+            } else if (col <= 15 && col > 7) {
+                ledArr[0][col] = service.replace(ledArr[0][col], LedColor.BLUE);
+            } else if (col <= 7) {
+                ledArr[0][col] = service.replace(ledArr[0][col], LedColor.YELLOW);
+            }
+        }
+
+        // 3. Einschalten der LED
+        for (int col = ledArr[0].length - 1; col >= 0; col--) {
+            ledArr[0][col].turnOn();
+        }
+
+        // 4. Leds verschieben
+        for (int i = 0; i < 96; i++) {
+            LedColor lastColor = ledArr[0][ledArr[0].length - 1].getColor();
+
+            for (int col = ledArr[0].length - 1; col > 0; col--) {
+                ledArr[0][col] = service.replace(ledArr[0][col], ledArr[0][col - 1].getColor());
+            }
+            ledArr[0][0] = service.replace(ledArr[0][0], lastColor);
         }
     }
 }
