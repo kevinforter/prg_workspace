@@ -246,6 +246,8 @@ public class ClientApp {
             for (int col = ledArr[0].length - 1; col > 0; col--) {
                 ledArr[0][col] = service.replace(ledArr[0][col], ledArr[0][col - 1].getColor());
             }
+
+            // Letzte LED → erste LED
             ledArr[0][0] = service.replace(ledArr[0][0], lastColor);
         }
     }
