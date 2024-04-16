@@ -22,4 +22,15 @@ public class Teilnehmer extends Person {
 	public static final String PROJEKTLEITER = "Projektleiter";
 	public static final String ANDERS = "Anders";
 
+	@Override
+	public boolean equals(final Object object) {
+		if (object == this) {
+			return true;
+		}
+		return (object instanceof Teilnehmer t)
+				&& (t.getName().equals(this.getName()))
+				&& (t.getVorname().equals(this.getVorname()))
+				&& (t.getEmail().equals(this.getEmail()));
+	}
+
 }

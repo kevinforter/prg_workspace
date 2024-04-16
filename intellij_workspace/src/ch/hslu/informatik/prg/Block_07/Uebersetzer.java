@@ -47,4 +47,15 @@ public abstract class Uebersetzer extends Person {
 	public static final String ENGLISCH = "Englisch";
 	public static final String FRANZOESISCH = "Französisch";
 	public static final String ITALIENISCH = "Italienisch";
+
+	@Override
+	public boolean equals(final Object object) {
+		if (object == this) {
+			return true;
+		}
+		return (object instanceof Uebersetzer u)
+				&& (u.getName().equals(this.getName()))
+				&& (u.getVorname().equals(this.getVorname()))
+				&& (u.getEmail().equals(this.getEmail()));
+	}
 }
