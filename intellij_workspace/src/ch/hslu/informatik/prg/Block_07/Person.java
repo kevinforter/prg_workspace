@@ -40,4 +40,10 @@ public class Person {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "Name= " + this.name + ", " +
+				"Vorname= " + this.vorname + ", " +
+				"E-Mail= " + this.email;
+	}
 }

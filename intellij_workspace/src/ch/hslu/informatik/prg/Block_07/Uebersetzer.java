@@ -68,10 +68,10 @@ public abstract class Uebersetzer extends Person {
 
 	@Override
 	public String toString() {
-		return "Teilnehmer [" +
-				"Name= " + getName() + ", " +
-				"Vorname= " + getVorname() + ", " +
-				"E-Mail= " + getEmail() +
+		return "Uebersetzer [" +
+				super.toString() + ", " +
+				"Muttersprache: " + this.muttersprache + ", " +
+				"Fremdsprache: " + this.fremdsprache +
 				']';
 	}
 }

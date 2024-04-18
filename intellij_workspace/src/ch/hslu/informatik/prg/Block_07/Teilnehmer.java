@@ -43,9 +43,8 @@ public class Teilnehmer extends Person {
 	@Override
 	public String toString() {
 		return "Teilnehmer [" +
-				"Name= " + getName() + ", " +
-				"Vorname= " + getVorname() + ", " +
-				"E-Mail= " + getEmail() +
+				super.toString() + ", " +
+				"Rolle: " + this.rolle +
 				']';
 	}
 }
