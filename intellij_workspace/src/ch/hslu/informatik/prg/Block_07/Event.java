@@ -118,10 +118,10 @@ public class Event {
         uebersetzerListe[uebersetzerIndex++] = uebersetzer;
     }
 
-    public void teilnehmerEntfernen(Teilnehmer teilnehmer) {
+    public void teilnehmerEntfernen(String email) {
 
         for (int i = 0; i < teilnehmerListe.length; i++) {
-            if (teilnehmerListe[i].equals(teilnehmer)) {
+            if (teilnehmerListe[i].getEmail().equals(email)) {
                 teilnehmerListe[i] = null;
 
                 for (int y = i; y < teilnehmerListe.length - 1; y++) {
@@ -134,10 +134,10 @@ public class Event {
         }
     }
 
-    public void uebersetzerEntfernen(Uebersetzer uebersetzer) {
+    public void uebersetzerEntfernen(String email) {
 
         for (int i = 0; i < uebersetzerListe.length; i++) {
-            if (uebersetzerListe[i].equals(uebersetzer)) {
+            if (uebersetzerListe[i].getEmail().equals(email)) {
                 uebersetzerListe[i] = null;
 
                 for (int y = i; y < uebersetzerListe.length - 1; y++) {
