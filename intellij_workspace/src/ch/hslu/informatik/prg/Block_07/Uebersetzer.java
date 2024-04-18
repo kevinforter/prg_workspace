@@ -1,5 +1,7 @@
 package ch.hslu.informatik.prg.Block_07;
 
+import java.util.Objects;
+
 public abstract class Uebersetzer extends Person {
 
 	private String muttersprache;
@@ -57,5 +59,19 @@ public abstract class Uebersetzer extends Person {
 				&& (u.getName().equals(this.getName()))
 				&& (u.getVorname().equals(this.getVorname()))
 				&& (u.getEmail().equals(this.getEmail()));
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getName(), getVorname(), getEmail());
+	}
+
+	@Override
+	public String toString() {
+		return "Teilnehmer [" +
+				"Name= " + getName() + ", " +
+				"Vorname= " + getVorname() + ", " +
+				"E-Mail= " + getEmail() +
+				']';
 	}
 }

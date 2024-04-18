@@ -1,5 +1,7 @@
 package ch.hslu.informatik.prg.Block_07;
 
+import java.util.Objects;
+
 public class Teilnehmer extends Person {
 
 	private String rolle;
@@ -33,4 +35,17 @@ public class Teilnehmer extends Person {
 				&& (t.getEmail().equals(this.getEmail()));
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(getName(), getVorname(), getEmail());
+	}
+
+	@Override
+	public String toString() {
+		return "Teilnehmer [" +
+				"Name= " + getName() + ", " +
+				"Vorname= " + getVorname() + ", " +
+				"E-Mail= " + getEmail() +
+				']';
+	}
 }
