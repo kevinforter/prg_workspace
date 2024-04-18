@@ -129,6 +129,7 @@ public class Event {
                 }
 
                 teilnehmerListe[teilnehmerListe.length - 1] = null;
+                teilnehmerIndex--;
                 break;
             }
         }
@@ -145,6 +146,7 @@ public class Event {
                 }
 
                 uebersetzerListe[uebersetzerListe.length - 1] = null;
+                uebersetzerIndex--;
                 break;
             }
         }
