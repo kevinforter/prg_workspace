@@ -276,4 +276,79 @@ public class ClientApp {
             ledArr[0][0] = service.replace(ledArr[0][0], lastColor);
         }
     }
+
+    // Aufgabe 10.1 -- unklar
+
+    public static void countColors(Scanner sc, BoardService service) {
+
+        // Maximal mögliche Anzahl LEDs hinzufügen (Farbe Random)
+        Led[][] ledZufall = service.add(BoardService.MAX_ROWS, LedColor.RANDOM);
+        for (int i = 0; i < BoardService.MAX_ROWS; i++) {
+            for (int j = 0; j < BoardService.LEDS_PER_ROW; j++) {
+                ledZufall[i][j].turnOn();
+            }
+        }
+        // Methode Anhalten
+        service.pauseExecution(2000);
+
+        // Array zum Speichern der Anzahl der LEDs für jede Farbe
+        int[] colorCount = new int[LedColor.values().length];
+
+        // LEDs durchlaufen und Farben zählen
+        for (int i = 0; i < BoardService.MAX_ROWS; i++) {
+            for (int j = 0; j < BoardService.LEDS_PER_ROW; j++) {
+                LedColor color = ledZufall[i][j].getColor();
+                if (color != LedColor.RANDOM) {
+                    colorCount[color.ordinal()]++;
+                }
+            }
+        }
+
+        // Ausgabe der Anzahl der LEDs für jede Farbe
+        for (LedColor color : LedColor.values()) {
+            if (color != LedColor.RANDOM) {
+                System.out.println(color.name() + ": " + colorCount[color.ordinal()] + " LEDs");
+            }
+        }
+    }
+
+    // Aufgabe 10.2
+    public static void countColorsExt(Scanner sc, BoardService service) {
+        // Maximal mögliche Anzahl LEDs hinzufügen (Farbe Random)
+        Led[][] ledZufall = service.add(BoardService.MAX_ROWS, LedColor.RANDOM);
+        for (int i = 0; i < BoardService.MAX_ROWS; i++) {
+            for (int j = 0; j < BoardService.LEDS_PER_ROW; j++) {
+                ledZufall[i][j].turnOn();
+            }
+        }
+        // Methode Anhalten
+        service.pauseExecution(2000);
+
+        // Array zum Speichern der Anzahl der LEDs für jede Farbe in jeder Zeile
+        int[][] colorCount = new int[LedColor.values().length][BoardService.MAX_ROWS];
+        int[] maxColorCount = new int[LedColor.values().length];
+        int[] maxColorRow = new int[LedColor.values().length];
+
+        // LEDs durchlaufen und Farben zählen
+        for (int i = 0; i < BoardService.MAX_ROWS; i++) {
+            for (int j = 0; j < BoardService.LEDS_PER_ROW; j++) {
+                LedColor color = ledZufall[i][j].getColor();
+                if (color != LedColor.RANDOM) {
+                    colorCount[color.ordinal()][i]++;
+                    if (colorCount[color.ordinal()][i] > maxColorCount[color.ordinal()]) {
+                        maxColorCount[color.ordinal()] = colorCount[color.ordinal()][i];
+                        maxColorRow[color.ordinal()] = i;
+                    }
+                }
+            }
+        }
+
+        // Ausgabe der Anzahl der LEDs für jede Farbe
+        for (LedColor color : LedColor.values()) {
+            if (color != LedColor.RANDOM) {
+                System.out.println(color.name() + ": " + maxColorCount[color.ordinal()] + " LEDs in der Zeile-Nr. "
+                        + maxColorRow[color.ordinal()]);
+            }
+        }
+    }
 }
