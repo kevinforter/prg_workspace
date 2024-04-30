@@ -27,7 +27,7 @@ public class ClientApp {
             // Aufruf Methoden
             case 1 -> ledsOnOff(service, sc);
             case 2 -> switchEvenOdd(service, sc);
-            //case 3 -> switchRandom(service, sc);
+            case 3 -> showBinary(service, sc);
             case 4 -> showSquare(service, sc);
             case 9 -> createRunningLight(service);
         }
@@ -159,6 +159,31 @@ public class ClientApp {
 
         // 10. Zurücksetzen
         service.removeAllLeds();
+    }
+
+    private static void showBinary(BoardService service, Scanner sc) {
+
+        // 1. Eingabe
+        System.out.println("Geben Sie eine Zahl von 0 - 4'294'967'295: ");
+        long input = sc.nextLong();
+
+        // 2. Umwandlung Long to String
+        StringBuilder binaryString = new StringBuilder(Long.toBinaryString(input));
+
+        // Füge führende 0 hinzu
+        while (binaryString.length() < 32) {
+            binaryString.insert(0, "0");
+        }
+
+        // 3. Eine Reihe hinzufügen
+        ledArr = service.add(1);
+
+        // 4. LEDs einschalten
+        for (int i = 0; i < binaryString.length(); i++) {
+            if (binaryString.charAt(i) == '1') {
+                ledArr[0][i].turnOn();
+            }
+        }
     }
 
     private static void showSquare(BoardService service, Scanner sc) {
