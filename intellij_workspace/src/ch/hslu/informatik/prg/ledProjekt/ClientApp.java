@@ -167,7 +167,7 @@ public class ClientApp {
         System.out.println("Geben Sie eine Zahl von 0 - 4'294'967'295: ");
         long input = sc.nextLong();
 
-        // 2. Umwandlung Long to String
+        // 2. Umwandlung Long to String mittels StringBuilder
         StringBuilder binaryString = new StringBuilder(Long.toBinaryString(input));
 
         // Füge führende 0 hinzu
